@@ -1,0 +1,7 @@
+---
+import { Terminology as TerminologyComponent } from "@/components/Terminology";
+
+const { term, definition, originalTerm } = Astro.props;
+---
+
+<TerminologyComponent client:load {term} {definition} {originalTerm} />

@@ -1,0 +1,31 @@
+---
+interface Props {
+  term: string;
+  displayText?: string;
+}
+
+const { term, displayText = term } = Astro.props;
+const encodedTerm = encodeURIComponent(term.replace(/ /g, "_"));
+const url = `https://en.wikipedia.org/wiki/${encodedTerm}`;
+---
+
+<span class="inline-flex items-center group">
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center relative no-underline"
+  >
+    <img
+      src="/wikipedia-svgrepo-com.svg"
+      alt="Wikipedia"
+      width="16"
+      height="16"
+      class="mr-1 fill-orange-500 group-hover:fill-orange-600 transition-colors"
+    />
+    <span class="font-semibold">{displayText}</span>
+    <span
+      class="absolute bottom-0 left-0 w-full h-1 bg-orange-500 transform -skew-x-12"
+    ></span>
+  </a>
+</span>

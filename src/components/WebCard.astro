@@ -1,0 +1,11 @@
+---
+import { WebCard as ReactWebCard } from "./WebCard";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+
+<ReactWebCard url={url} client:load />

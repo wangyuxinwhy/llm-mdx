@@ -1,0 +1,105 @@
+---
+title: "MDX example"
+description: "MDX example"
+date: "10/11/2024"
+draft: false
+---
+
+import GithubRepo from "@/components/GithubRepo.astro";
+import Terminology from "@/components/Terminology.astro";
+import { Timeline, TimelineEvent } from "@/components/TimeLine";
+import WebCard from "@/components/WebCard.astro";
+import WikiLink from "@/components/WikiLink.astro";
+
+好的，让我为您详细介绍一下 CORS（跨域资源共享）。
+
+# 什么是 CORS？
+
+<Terminology term="CORS" definition="跨域资源共享，是一种允许在网页浏览器上运行的 Web 应用从另一个域请求资源的机制" originalTerm="Cross-Origin Resource Sharing" /> 是现代 Web 开发中的一个重要概念。它解决了浏览器的 <Terminology term="同源策略" definition="一种安全机制，限制从一个源加载的文档或脚本如何与来自另一个源的资源进行交互" /> 带来的限制，使得 Web 应用能够更灵活地访问不同域的资源。
+
+## CORS 的背景
+
+在 Web 安全模型中，浏览器强制执行同源策略，以防止潜在的恶意脚本访问敏感数据。然而，随着 Web 应用变得越来越复杂，跨域请求的需求也随之增加。<WikiLink term="Cross-origin_resource_sharing" displayText="跨域资源共享" /> 应运而生，成为了一种标准化的方法，允许服务器声明哪些源可以访问其资源。
+
+## CORS 如何工作
+
+CORS 通过在 HTTP 头中添加新的 <Terminology term="Origin" definition="表示请求来源的头部字段" /> 字段来工作。当一个资源向另一个域发起请求时，浏览器会自动添加一个 Origin 头，其中包含请求源的信息。服务器可以根据这个 Origin 决定是否允许请求，并在响应中包含相应的 CORS 头。
+
+主要的 CORS 响应头包括：
+
+1. Access-Control-Allow-Origin
+2. Access-Control-Allow-Methods
+3. Access-Control-Allow-Headers
+
+## CORS 请求类型
+
+CORS 定义了两种类型的请求：
+
+1. 简单请求：满足特定条件的请求，如 GET、HEAD 或 POST 方法。
+2. 预检请求：对于不符合简单请求条件的请求，浏览器会先发送一个 OPTIONS 请求来检查服务器是否允许实际请求。
+
+## CORS 的实现
+
+在服务器端实现 CORS 通常涉及配置 Web 服务器或应用服务器以发送正确的 CORS 头。以下是一个使用 Node.js 和 Express 框架实现 CORS 的简单示例：
+
+```javascript
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
+
+app.get('/api/data', (req, res) => {
+  res.json({ message: 'This is CORS-enabled data' });
+});
+
+app.listen(3000, () => {
+  console.log('CORS-enabled web server listening on port 3000');
+});
+```
+
+这个例子使用了流行的 `cors` 中间件：
+
+<GithubRepo owner="expressjs" name="cors" />
+
+## CORS 的重要性
+
+CORS 对现代 Web 开发至关重要，原因如下：
+
+1. 允许前端和后端分离：使得前端应用可以轻松地与不同域的 API 交互。
+2. 微服务架构支持：便于在分布式系统中不同服务之间的通信。
+3. 第三方集成：允许 Web 应用安全地集成第三方服务和 API。
+4. 提高安全性：通过精确控制哪些域可以访问资源，增强了 Web 应用的安全性。
+
+## CORS 的挑战和注意事项
+
+尽管 CORS 带来了许多好处，但在实施时也需要注意一些潜在的挑战：
+
+1. 安全配置：错误的 CORS 配置可能会导致安全漏洞。
+2. 性能影响：预检请求可能会增加延迟。
+3. 浏览器兼容性：旧版浏览器可能不完全支持 CORS。
+4. 调试复杂性：CORS 错误可能难以诊断和修复。
+
+## CORS 的发展历程
+
+<Timeline>
+  <TimelineEvent date="2009-03">
+    W3C 开始起草 CORS 规范
+  </TimelineEvent>
+  <TimelineEvent date="2014-01">
+    CORS 规范成为 W3C 推荐标准
+  </TimelineEvent>
+  <TimelineEvent date="2020-12">
+    CORS 规范最新更新，进一步完善和优化
+  </TimelineEvent>
+</Timeline>
+
+## 结论
+
+CORS 是现代 Web 开发中不可或缺的一部分，它解决了跨域资源访问的问题，同时保持了 Web 的安全性。理解和正确实施 CORS 对于构建强大、灵活和安全的 Web 应用至关重要。随着 Web 技术的不断发展，CORS 也在持续演进，以满足不断变化的需求和安全挑战。
+
+要深入了解 CORS，可以参考以下资源：
+
+<WebCard url="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" />
+
+通过掌握 CORS，开发者可以构建更加强大和灵活的 Web 应用，同时确保用户数据的安全性和隐私。

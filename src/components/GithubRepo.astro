@@ -1,0 +1,9 @@
+---
+import { GithubRepo as GithubRepoComponent } from "@/components/GithubRepo";
+---
+
+<GithubRepoComponent
+  client:load
+  owner={Astro.props.owner}
+  name={Astro.props.name}
+/>
